@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://login.microsoftonline.com https://*.azurewebsites.net; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self'; frame-src https://login.microsoftonline.com; form-action https://login.microsoftonline.com; base-uri 'none'; object-src 'none'; frame-ancestors 'none'">
+    <title>Vulpine Operations</title>
+    <meta name="description" content="Secure Vulpine medical logistics workspace.">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./app.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body data-auth-state="checking">
+    <div class="ambient ambient--one"></div>
+    <div class="ambient ambient--two"></div>
+
+    <header class="topbar">
+      <a class="brand" href="../comparison/" aria-label="Vulpine public comparison">
+        <img src="../vulpine-mark.png" alt="" width="48" height="48">
+        <span><strong>Vulpine</strong><small>Operations</small></span>
+      </a>
+      <div class="topbar__actions">
+        <a class="button button--quiet" href="../comparison/">Public comparison</a>
+        <div class="identity" id="identity" hidden>
+          <span class="identity__dot"></span>
+          <span><strong id="identity-name"></strong><small id="identity-email"></small></span>
+        </div>
+        <button class="button button--quiet" id="sign-out" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="gate" id="auth-state" aria-live="polite">
+        <div class="route-signal" id="loading" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="eyebrow" id="state-eyebrow">Secure workspace</p>
+        <h1 id="state-title">Checking your session</h1>
+        <p class="gate__message" id="state-message">Resolving Microsoft Entra identity and Vulpine organization access.</p>
+        <p class="error-detail" id="error-detail" hidden></p>
+        <div class="gate__actions">
+          <button class="button button--primary" id="sign-in" type="button" hidden>Continue with Microsoft</button>
+          <button class="button button--primary" id="retry" type="button" hidden>Retry access check</button>
+          <a class="button button--quiet" href="../comparison/">Return to comparison</a>
+        </div>
+        <div class="boundary">
+          <span>1 · Microsoft identity</span>
+          <i></i>
+          <span>2 · Vulpine allowlist</span>
+          <i></i>
+          <span>3 · Role-scoped workspace</span>
+        </div>
+      </section>
+
+      <section class="workspace" id="workspace-shell" hidden>
+        <div class="workspace__heading">
+          <div>
+            <p class="eyebrow">Authenticated operations surface</p>
+            <h1>Workspace access verified</h1>
+            <p>Entra established identity. Vulpine independently established organization membership and role.</p>
+          </div>
+          <span class="role-chip"><span></span><b id="member-role">member</b></span>
+        </div>
+
+        <div class="boundary-card">
+          <div><small>Identity provider</small><strong>Microsoft Entra ID</strong></div>
+          <b>→</b>
+          <div><small>Authorization authority</small><strong>Vulpine Core API</strong></div>
+          <b>→</b>
+          <div><small>Operational policy</small><strong>Organization + role</strong></div>
+        </div>
+
+        <div class="surface-grid" aria-label="Vulpine operational surface status">
+          <article>
+            <span class="surface-icon">01</span>
+            <p class="eyebrow">Driver continuity</p>
+            <h2>Local-first route sync</h2>
+            <p>Durable capture, ordered outbox processing, idempotent replay, and evidence reconciliation are ready behind the shared API contract.</p>
+            <span class="status-tag">Core connected</span>
+          </article>
+          <article>
+            <span class="surface-icon">02</span>
+            <p class="eyebrow">Chain of custody</p>
+            <h2>Gated package capture</h2>
+            <p>Barcode and exception-first collection flows attach evidence to stops without asking drivers to navigate an administrative system.</p>
+            <span class="status-tag status-tag--next">UI mount next</span>
+          </article>
+          <article>
+            <span class="surface-icon">03</span>
+            <p class="eyebrow">Operations intelligence</p>
+            <h2>API + MCP context</h2>
+            <p>One policy boundary supplies the web app, iOS wrapper, automation, and model with the same organization-scoped operational truth.</p>
+            <span class="status-tag">Core connected</span>
+          </article>
+        </div>
+
+        <section class="access-panel" id="access-panel" hidden>
+          <div class="access-panel__heading">
+            <div>
+              <p class="eyebrow">Administrator</p>
+              <h2>Workspace access</h2>
+              <p>Add an exact email or a domain beginning with <code>@</code>, then assign the least-privileged starting role.</p>
+            </div>
+            <p class="access-note">An access rule authorizes an existing tenant identity. External guest invitation remains a separate Entra administrative action for this pilot.</p>
+          </div>
+          <form class="rule-form" id="add-rule-form">
+            <label>
+              <span>Email or domain</span>
+              <input id="rule-input" name="rule" type="text" autocomplete="off" placeholder="operator@example.com or @example.com" required minlength="3" maxlength="254">
+            </label>
+            <label>
+              <span>Starting role</span>
+              <select id="rule-role" name="memberRole">
+                <option value="viewer">Viewer</option>
+                <option value="driver">Driver</option>
+                <option value="dispatcher">Dispatcher</option>
+              </select>
+            </label>
+            <button class="button button--primary" type="submit">Add access</button>
+          </form>
+          <p class="access-status" id="access-status" aria-live="polite"></p>
+          <ul class="rules" id="access-rules"></ul>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <span>Vulpine by Hermetic Labs</span>
+      <span>Static shell · Entra identity · API-enforced authorization</span>
+    </footer>
+  </body>
+</html>
