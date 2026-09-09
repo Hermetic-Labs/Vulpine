@@ -10,7 +10,7 @@
     <meta name="description" content="Secure Vulpine medical logistics workspace.">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./app.css">
-    <script type="module" src="./app.js"></script>
+    <script type="module" src="./app.js"></script><script defer src="./command-launch.js"></script>
   </head>
   <body data-auth-state="checking">
     <div class="ambient ambient--one"></div>
@@ -61,7 +61,7 @@
             <h1>Workspace access verified</h1>
             <p>Entra established identity. Vulpine independently established organization membership and role.</p>
           </div>
-          <span class="role-chip"><span></span><b id="member-role">member</b></span>
+          <div class="workspace-launch"><span class="role-chip"><span></span><b id="member-role">member</b></span><a class="button button--primary" id="open-command" href="./command/">Open operations command</a></div>
         </div>
 
         <div class="boundary-card">
