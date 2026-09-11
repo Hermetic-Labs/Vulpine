@@ -1,7 +1,7 @@
 "use strict";
 (() => {
   const tokenKey = "vulpine.api.access-token";
-  const apiBase = "https://func-vulpine-7hif3vkfqx.azurewebsites.net/api/";
+  const apiBase = "https://hermetic-labs-gateway.azure-api.net/vulpine/";
   const nativeFetch = window.fetch.bind(window);
   window.fetch = (input, init) => {
     try {
