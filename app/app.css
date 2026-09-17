@@ -23,6 +23,26 @@
   --red: #ff6478;
 }
 
+html[data-brand-mode="live"] {
+  --deep: #030711;
+  --panel: rgba(6, 14, 28, .9);
+  --orange: #1455ff;
+  --amber: #ff1717;
+  --teal: #00c947;
+  --line: rgba(80, 125, 255, .24);
+}
+
+html[data-brand-mode="live"] body {
+  background:
+    radial-gradient(circle at 22% 4%, rgba(20, 85, 255, .2), transparent 28rem),
+    radial-gradient(circle at 88% 36%, rgba(0, 201, 71, .1), transparent 32rem),
+    var(--deep);
+}
+
+html[data-brand-mode="live"] .brand img { width: 116px; height: 60px; }
+html[data-brand-mode="live"] .brand span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+html[data-brand-mode="live"] .button--primary { color: #fff; background: linear-gradient(120deg, #1455ff, #0b3cb8); box-shadow: 0 10px 30px rgba(20, 85, 255, .22); }
+
 * { box-sizing: border-box; }
 
 [hidden] { display: none !important; }
