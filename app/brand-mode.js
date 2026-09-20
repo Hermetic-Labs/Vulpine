@@ -11,9 +11,11 @@
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
+      let next = node.data;
       for (const [pattern, replacement] of replacements) {
-        node.data = node.data.replace(pattern, replacement);
+        next = next.replace(pattern, replacement);
       }
+      if (next !== node.data) node.data = next;
     }
   };
 
@@ -30,9 +32,11 @@
   new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       if (mutation.type === "characterData") {
+        let next = mutation.target.data;
         for (const [pattern, replacement] of replacements) {
-          mutation.target.data = mutation.target.data.replace(pattern, replacement);
+          next = next.replace(pattern, replacement);
         }
+        if (next !== mutation.target.data) mutation.target.data = next;
       }
       mutation.addedNodes.forEach((node) => rewriteText(node));
     }
