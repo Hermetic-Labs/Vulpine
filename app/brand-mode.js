@@ -1,47 +1,38 @@
 "use strict";
 (() => {
-  const live = new URLSearchParams(location.search).get("mode") === "live";
-  if (!live) return;
-
-  document.documentElement.dataset.brandMode = "live";
-  document.title = "Seven Miles Medical Logistics";
-  const description = document.querySelector('meta[name="description"]');
-  if (description) description.content = "Secure Seven Miles medical logistics workspace.";
-
-  const brand = document.querySelector(".brand");
-  if (brand) {
-    brand.href = "./?mode=live";
-    brand.setAttribute("aria-label", "Seven Miles Medical Logistics workspace");
-  }
-  const logo = document.querySelector(".brand img");
-  if (logo) {
-    logo.src = "../seven-miles-logo.png";
-    logo.alt = "Seven Miles Medical Logistics";
-  }
-  const brandName = document.querySelector(".brand strong");
-  if (brandName) brandName.textContent = "Seven Miles";
-  const brandDetail = document.querySelector(".brand small");
-  if (brandDetail) brandDetail.textContent = "Medical Logistics";
+  const replacements = [
+    [/VULPINE/g, "HERMETIC LABS"],
+    [/Vulpine/g, "Hermetic Labs Courier"],
+    [/SEVEN MILES(?: MEDICAL LOGISTICS)?/g, "HERMETIC LABS COURIER"],
+    [/Seven Miles(?: Medical Logistics)?/g, "Hermetic Labs Courier"],
+  ];
 
   const rewriteText = (root) => {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
-      if (node.data.includes("Vulpine")) node.data = node.data.replaceAll("Vulpine", "Seven Miles");
-      if (node.data.includes("VULPINE")) node.data = node.data.replaceAll("VULPINE", "SEVEN MILES");
+      for (const [pattern, replacement] of replacements) {
+        node.data = node.data.replace(pattern, replacement);
+      }
     }
   };
 
+  document.title = "Hermetic Labs Courier";
+  const description = document.querySelector('meta[name="description"]');
+  if (description) description.content = "Secure Hermetic Labs courier operations workspace.";
   rewriteText(document.body);
+
   document.querySelectorAll('a[href*="comparison"]').forEach((link) => {
-    link.href = "./?mode=live";
-    link.textContent = link.classList.contains("brand") ? link.textContent : "Operations home";
+    link.href = "./?destination=business";
+    if (!link.classList.contains("brand")) link.remove();
   });
 
   new MutationObserver((mutations) => {
     for (const mutation of mutations) {
-      if (mutation.type === "characterData" && mutation.target.data.includes("Vulpine")) {
-        mutation.target.data = mutation.target.data.replaceAll("Vulpine", "Seven Miles");
+      if (mutation.type === "characterData") {
+        for (const [pattern, replacement] of replacements) {
+          mutation.target.data = mutation.target.data.replace(pattern, replacement);
+        }
       }
       mutation.addedNodes.forEach((node) => rewriteText(node));
     }

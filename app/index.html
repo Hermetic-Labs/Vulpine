@@ -6,23 +6,22 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="referrer" content="no-referrer">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://login.microsoftonline.com https://*.azurewebsites.net https://hermetic-labs-gateway.azure-api.net; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self'; frame-src 'self' https://login.microsoftonline.com; form-action https://login.microsoftonline.com; base-uri 'none'; object-src 'none'; frame-ancestors 'none'">
-    <title>Vulpine Operations</title>
-    <meta name="description" content="Secure Vulpine medical logistics workspace.">
+    <title>Hermetic Labs Courier</title>
+    <meta name="description" content="Secure Hermetic Labs courier operations workspace.">
 
     <link rel="stylesheet" href="./app.css">
     <script src="./auth-token-bridge.js"></script><script defer src="./brand-mode.js"></script><script type="module" src="./app.js"></script><script defer src="./command-launch.js"></script><script defer src="./connector-status.js"></script>
-  <link rel="icon" type="image/png" sizes="32x32" href="/Vulpine/favicon-32.png"/><link rel="apple-touch-icon" sizes="180x180" href="/Vulpine/apple-touch-icon.png"/><link rel="manifest" href="/Vulpine/site.webmanifest"/></head>
+  <link rel="icon" type="image/svg+xml" href="/Vulpine/favicon.svg"/><link rel="manifest" href="/Vulpine/site.webmanifest"/></head>
   <body data-auth-state="checking">
     <div class="ambient ambient--one"></div>
     <div class="ambient ambient--two"></div>
 
     <header class="topbar">
-      <a class="brand" href="../comparison/" aria-label="Vulpine public comparison">
-        <img src="../vulpine-mark.png" alt="" width="48" height="48">
-        <span><strong>Vulpine</strong><small>Operations</small></span>
+      <a class="brand" href="./?destination=business" aria-label="Hermetic Labs Courier workspace">
+        <img src="../favicon.svg" alt="" width="48" height="48">
+        <span><strong>Hermetic Labs</strong><small>Courier</small></span>
       </a>
       <div class="topbar__actions">
-        <a class="button button--quiet" href="../comparison/">Public comparison</a>
         <div class="identity" id="identity" hidden>
           <span class="identity__dot"></span>
           <span><strong id="identity-name"></strong><small id="identity-email"></small></span>
@@ -38,17 +37,16 @@
         </div>
         <p class="eyebrow" id="state-eyebrow">Secure workspace</p>
         <h1 id="state-title">Checking your session</h1>
-        <p class="gate__message" id="state-message">Resolving Microsoft Entra identity and Vulpine organization access.</p>
+        <p class="gate__message" id="state-message">Resolving Microsoft Entra identity and Hermetic Labs organization access.</p>
         <p class="error-detail" id="error-detail" hidden></p>
         <div class="gate__actions">
           <button class="button button--primary" id="sign-in" type="button" hidden>Continue with Microsoft</button>
           <button class="button button--primary" id="retry" type="button" hidden>Retry access check</button>
-          <a class="button button--quiet" href="../comparison/">Return to comparison</a>
         </div>
         <div class="boundary">
           <span>1 · Microsoft identity</span>
           <i></i>
-          <span>2 · Vulpine allowlist</span>
+          <span>2 · Courier access</span>
           <i></i>
           <span>3 · Role-scoped workspace</span>
         </div>
@@ -59,20 +57,20 @@
           <div>
             <p class="eyebrow">Authenticated operations surface</p>
             <h1>Workspace access verified</h1>
-            <p>Entra established identity. Vulpine independently established organization membership and role.</p>
+            <p>Entra established identity. Hermetic Labs independently established organization membership and role.</p>
           </div>
-          <div class="workspace-launch"><span class="role-chip"><span></span><b id="member-role">member</b></span><a class="button button--primary" id="open-command" href="./command/">Open operations command</a></div>
+          <div class="workspace-launch"><span class="role-chip"><span></span><b id="member-role">member</b></span><a class="button button--primary" id="open-command" href="./business/">Open courier launch control</a></div>
         </div>
 
         <div class="boundary-card">
           <div><small>Identity provider</small><strong>Microsoft Entra ID</strong></div>
           <b>→</b>
-          <div><small>Authorization authority</small><strong>Vulpine Core API</strong></div>
+          <div><small>Authorization authority</small><strong>Hermetic Labs Operations API</strong></div>
           <b>→</b>
           <div><small>Operational policy</small><strong>Organization + role</strong></div>
         </div>
 
-        <div class="surface-grid" aria-label="Vulpine operational surface status">
+        <div class="surface-grid" aria-label="Hermetic Labs courier surface status">
           <article>
             <span class="surface-icon">01</span>
             <p class="eyebrow">Driver continuity</p>
@@ -107,7 +105,7 @@
             <div>
               <p class="eyebrow">Dispatch connector fabric</p>
               <h2>One operating model, replaceable provider edges</h2>
-              <p>Vulpine keeps authority, package identity, audit, and recovery in the core while each dispatch service advertises its honest boundaries.</p>
+              <p>Hermetic Labs keeps authority, package identity, audit, and recovery in the core while each dispatch service advertises its honest boundaries.</p>
             </div>
             <p class="connector-panel__status" id="connector-status" role="status" aria-live="polite">Loading governed connector capabilities…</p>
           </div>
@@ -134,6 +132,7 @@
                 <option value="viewer">Viewer</option>
                 <option value="driver">Driver</option>
                 <option value="dispatcher">Dispatcher</option>
+                <option value="administrator">Administrator</option>
               </select>
             </label>
             <button class="button button--primary" type="submit">Add access</button>
@@ -145,7 +144,7 @@
     </main>
 
     <footer>
-      <span>Vulpine by Hermetic Labs</span>
+      <span>Hermetic Labs Courier</span>
       <span>Static shell · Entra identity · API-enforced authorization</span>
     </footer>
   </body>

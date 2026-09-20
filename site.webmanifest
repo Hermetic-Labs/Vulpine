@@ -1,24 +1,16 @@
 {
-  "name": "Vulpine",
-  "short_name": "Vulpine",
-  "description": "Medical logistics operations, route execution, and auditable custody.",
-  "start_url": "/Vulpine/",
+  "name": "Hermetic Labs Courier",
+  "short_name": "HL Courier",
+  "description": "Secure courier launch control and client logistics operations.",
+  "start_url": "/Vulpine/app/?destination=business",
   "scope": "/Vulpine/",
   "display": "standalone",
   "background_color": "#080807",
   "theme_color": "#080807",
-  "icons": [
-    {
-      "src": "/Vulpine/vulpine-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/Vulpine/vulpine-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "icons": [{
+    "src": "/Vulpine/favicon.svg",
+    "sizes": "any",
+    "type": "image/svg+xml",
+    "purpose": "any"
+  }]
 }
