@@ -7,16 +7,22 @@
     [/Seven Miles(?: Medical Logistics)?/g, "Hermetic Labs Courier"],
   ];
 
+  const rewriteNode = (node) => {
+    let next = node.data;
+    for (const [pattern, replacement] of replacements) {
+      next = next.replace(pattern, replacement);
+    }
+    if (next !== node.data) node.data = next;
+  };
+
   const rewriteText = (root) => {
+    if (root.nodeType === Node.TEXT_NODE) {
+      rewriteNode(root);
+      return;
+    }
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node;
-    while ((node = walker.nextNode())) {
-      let next = node.data;
-      for (const [pattern, replacement] of replacements) {
-        next = next.replace(pattern, replacement);
-      }
-      if (next !== node.data) node.data = next;
-    }
+    while ((node = walker.nextNode())) rewriteNode(node);
   };
 
   document.title = "Hermetic Labs Courier";
@@ -29,16 +35,7 @@
     if (!link.classList.contains("brand")) link.remove();
   });
 
-  new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      if (mutation.type === "characterData") {
-        let next = mutation.target.data;
-        for (const [pattern, replacement] of replacements) {
-          next = next.replace(pattern, replacement);
-        }
-        if (next !== mutation.target.data) mutation.target.data = next;
-      }
-      mutation.addedNodes.forEach((node) => rewriteText(node));
-    }
-  }).observe(document.body, { subtree: true, childList: true, characterData: true });
+  for (const delay of [0, 250, 1000, 3000, 7500]) {
+    window.setTimeout(() => rewriteText(document.body), delay);
+  }
 })();
